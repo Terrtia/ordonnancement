@@ -1,29 +1,48 @@
 #include "structs.h"
 
 
-struct s_tache * new_tache(int w, int s, int d)
+s_tache * new_tache(int w, int s, int d)
 {
-    struct s_tache * nouvelle_tache = (struct s_tache *) malloc (sizeof(struct s_tache));
+    s_tache * nouvelle_tache = (s_tache *) malloc (sizeof( s_tache));
     nouvelle_tache->weight = w;
     nouvelle_tache->start_at_least = s;
     nouvelle_tache->duration = d;
 }
 
-struct s_machine * new_machine(int n)
+s_taches * new_taches(int n)
 {
-    struct s_machine * nouvelle_machine = (struct s_machine *) malloc (sizeof(struct s_machine));
-    nouvelle_machine->liste_taches = (struct s_tache **) malloc (sizeof(struct s_tache * )*n);
+    s_taches * liste_taches = (s_taches *) malloc (sizeof(s_taches));
+    liste_taches->nb_taches = 0;
+    liste_taches->taches = (s_tache **) malloc (sizeof(s_tache *)*n);
+    return liste_taches;
+}
+
+ s_machine * new_machine(int n)
+{
+     s_machine * nouvelle_machine = ( s_machine *) malloc (sizeof( s_machine));
+    nouvelle_machine->liste_taches = ( s_tache **) malloc (sizeof( s_tache * )*n);
     nouvelle_machine->nb_taches = 0;
     nouvelle_machine->start_time = 0;
 }
 
-void ajouter_tache(struct s_machine * machine, struct s_tache * tache)
+void ajouter_tache(s_taches * liste, s_tache * tache)
+{
+    liste->taches[liste->nb_taches] = tache;
+    liste->nb_taches++;
+}
+
+void trier_liste(s_taches * liste)
+{
+
+}
+
+void ajouter_tache( s_machine * machine,  s_tache * tache)
 {
     machine->liste_taches[machine->nb_taches] = tache;
     machine->nb_taches++;
 }
 
-int evaluer(struct s_machine * machine)
+int evaluer( s_machine * machine)
 {
     int i, time = machine->start_time, value = 0;
     for (i = 0; i < machine->nb_taches; i++)
@@ -34,13 +53,15 @@ int evaluer(struct s_machine * machine)
     return value;
 }
 
-void toString(struct s_machine * m)
+int ending_time( s_machine * m)
+
+void toString( s_machine * m)
 {
     int i;
     printf("Machine\n");
     for (i = 0; i < m->nb_taches; i++)
     {
-        struct s_tache * temp = m->liste_taches[i];
+         s_tache * temp = m->liste_taches[i];
         printf("P : %d , S : %d, D : %d\n", temp->weight, temp->start_at_least, temp->duration);
     }
 }
@@ -48,16 +69,14 @@ void toString(struct s_machine * m)
 int main ()
 {
     int i;
-    struct s_machine * M1, * M2;
+     s_machine * M1, * M2;
     M1 = new_machine(10);
     M2 = new_machine(10);
     for (i = 0; i < 10; i++)
     {
-        struct s_tache * tache = new_tache(1,i,1);
+         s_tache * tache = new_tache(1,i,1);
         ajouter_tache(M1, tache);
 
     }
-    toString(M1);
-    toString(M2);
     printf("%d , %d\n", evaluer(M1), evaluer(M2));
 }
