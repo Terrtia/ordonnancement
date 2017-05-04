@@ -1,3 +1,6 @@
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "structs.h"
 
 
@@ -7,7 +10,6 @@ s_tache * new_tache(int w, int s, int d)
     nouvelle_tache->weight = w;
     nouvelle_tache->start_at_least = s;
     nouvelle_tache->duration = d;
-    printf("%d, %d, %d\n",w,s,d);
     return nouvelle_tache;
 }
 
@@ -45,34 +47,98 @@ void ajouter_tache(s_taches * liste, s_tache * tache)
 
 void ajouter_tache_m( s_machine * machine,  s_tache * tache)
 {
-    ajouter_tache(machine->liste_taches, tache);
+    s_taches *  l = (s_taches *)machine->liste_taches;
+    ajouter_tache(l, tache);
     machine->nb_taches++;
 }
 
-void ajouter_tache_s(s_solution * s, int n_machine, s_tache * tache)
+void ajouter_tache_s(s_solution * s, int n_machine, int ntache)
 {
-    if (n_machine == 1)
-        ajouter_tache_m(s->m1, tache);
-    else if (n_machine == 2)
-        ajouter_tache_m(s->m2, tache);
+    if (n_machine == 0)
+        ajouter_tache_m(s->m1, s->taches->taches[ntache]);
+    else if (n_machine == 1)
+        ajouter_tache_m(s->m2, s->taches->taches[ntache]);
+}
+
+void swap (s_taches * liste, int x, int y)
+{
+    s_tache * t = liste->taches[x];
+    liste->taches[x] = liste->taches[y];
+    liste->taches[y] = t;
+}
+
+bool compare(s_tache * t1, s_tache * t2, int i)
+{
+    bool res = false;
+    switch (i)
+    {
+        case 0:
+            res = t1->start_at_least > t2->start_at_least;
+            break;
+        case 1:
+            res = ((float)t1->weight/(float)t1->duration) < ((float)t2->weight/(float)t2->duration);
+            break;
+    }
+    return res;
 }
 
 void trier_liste(s_taches * liste)
 {
-
+    int tab_size = liste->nb_taches;
+    int i, j;
+    for ( i = 0; i < tab_size - 1; i++) {
+        for ( j = 1; j < tab_size - i; j++) {
+            if ( compare(liste->taches[j-1], liste->taches[j],1)) {
+                swap(liste, j, j-1 );
+            }
+        }
+    }
 }
 
-int evaluer( s_machine * machine)
+
+int evaluer_m( s_machine * machine)
 {
     int i, time = machine->start_time, value = 0;
     for (i = 0; i < machine->nb_taches; i++)
     {
-        s_taches * l = machine->liste_taches;
+        s_taches* l = machine->liste_taches;
         s_tache * t = l->taches[i];
         time +=  t->duration;
         value += time * t->weight;
     }
     return value;
+}
+
+int evaluer(s_solution * solution)
+{
+    int res = 0;
+    res += evaluer_m(solution->m1);
+    res += evaluer_m(solution->m2);
+    return res;
+}
+
+int starting_time(s_machine * machine)
+{
+    s_taches * l = machine->liste_taches;
+    s_tache ** liste = l->taches;
+    int i, times[machine->nb_taches+1];
+    s_tache * t = liste[0];
+    int start = t->start_at_least;
+    times[0] = start;
+    times[1] = times[0] + t->duration;
+    for (i = 1; i < machine->nb_taches;i++)
+    {
+        t = liste[i];
+        int time_diff = (t->start_at_least - times[1]);
+        times[i+1] = times[i] + t->duration;
+        if (time_diff > 0)
+        {
+            start += time_diff;
+            times[i+1] += time_diff;
+        }
+    }
+    machine->start_time = start;
+    return start;
 }
 
 int ending_time( s_machine * machine)
@@ -101,16 +167,19 @@ void tachesToString(s_taches * t)
         tacheToString(temp);
     }
 }
+
 void machineToString( s_machine * m)
 {
-    printf("Machine\n");
-    tachesToString(m->liste_taches);
+    tachesToString((s_taches *)m->liste_taches);
 }
 
 void solutionToString( s_solution * s)
 {
+    printf("Liste des tâches : \n");
     tachesToString(s->taches);
+    printf("Machine 1:\n");
     machineToString(s->m1);
+    printf("Machine 2:\n");
     machineToString(s->m2);
 }
 
@@ -131,34 +200,38 @@ void free_taches(s_taches * taches)
 
 void free_machine(s_machine * machine)
 {
-    free_taches(machine->liste_taches);
+    free_taches((s_taches *)machine->liste_taches);
     free(machine);
 }
 
 void free_solution(s_solution * solution)
 {
-    //free_machine(solution->m1);
-    //free_machine(solution->m2);
-    //free_taches(solution->taches);
+    free_machine(solution->m1);
+    free_machine(solution->m2);
+    free_taches(solution->taches);
     free(solution);
 }
 
 int main ()
 {
-    /*int i;
+    int i;
     s_taches * liste = new_taches(10);
-    s_solution * S = new_solution(liste);
-    solutionToString(S);
+    srand(time());
     for (i = 0; i < 10; i++)
     {
-        s_tache * tache = new_tache(1,i,1);
+        s_tache * tache = new_tache(1 + rand()%5,i,1 + rand()%4);
         ajouter_tache(liste,tache);
-        tacheToString(liste->taches[0]);
-        ajouter_tache_s(S, 2, tache);
+
+    }
+    trier_liste(liste);
+    s_solution * S = new_solution(liste);
+    for (i = 0; i < 10; i++)
+    {
+        ajouter_tache_s(S, rand()%2, i);
 
     }
     solutionToString(S);
+    evaluer(S);
     free_solution(S);
-    printf("%d , %d\n", evaluer(S->m1), evaluer(S->m2));*/
 
 }

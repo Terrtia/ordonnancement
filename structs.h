@@ -18,7 +18,7 @@ typedef struct taches
 
 typedef struct machine
 {
-    struct s_taches * liste_taches;
+    s_taches * liste_taches;
     int nb_taches;
     int start_time;
 } s_machine;
@@ -41,9 +41,17 @@ void ajouter_tache(s_taches * liste, s_tache * tache);
 
 void ajouter_tache_m(s_machine * machine, s_tache * tache);
 
+void swap(s_taches * liste, int x, int y);
+
+bool compare(s_tache * t1, s_tache * t2, int i);
+
 void trier_liste(s_taches * liste);
 
-int evaluer(s_machine * machine);
+int evaluer_m(s_machine * machine);
+
+int starting_time(s_machine * machine);
+
+int ending_time( s_machine * machine);
 
 void machineToString(s_machine * m);
 
