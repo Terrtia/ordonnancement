@@ -46,7 +46,7 @@ void swap(s_taches * liste, int x, int y);
 
 bool compare(s_tache * t1, s_tache * t2, int i);
 
-void trier_liste(s_taches * liste);
+void trier_liste(s_taches * liste, int comp);
 
 int evaluer_m(s_machine * machine);
 

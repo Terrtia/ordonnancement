@@ -82,13 +82,13 @@ bool compare(s_tache * t1, s_tache * t2, int i)
     return res;
 }
 
-void trier_liste(s_taches * liste)
+void trier_liste(s_taches * liste, int comp)
 {
     int tab_size = liste->nb_taches;
     int i, j;
     for ( i = 0; i < tab_size - 1; i++) {
         for ( j = 1; j < tab_size - i; j++) {
-            if ( compare(liste->taches[j-1], liste->taches[j],0)) {
+            if ( compare(liste->taches[j-1], liste->taches[j],comp)) {
                 swap(liste, j, j-1 );
             }
         }

@@ -89,6 +89,8 @@ int main(int argc, char *argv[] ) {
 
       heuristique_1(listTaches, nbTache);
       heuristique_2(listTaches, nbTache);
+      heuristique_3(listTaches, nbTache);
+      heuristique_4(listTaches, nbTache);
    }
    return 0;
 }
