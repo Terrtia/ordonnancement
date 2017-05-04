@@ -36,9 +36,9 @@ void trier_liste(s_taches * liste)
 
 }
 
-void ajouter_tache( s_machine * machine,  s_tache * tache)
+void ajouter_tache_m( s_machine * machine,  s_tache * tache)
 {
-    machine->liste_taches[machine->nb_taches] = tache;
+    ajouter_tache(machine->liste_taches, tache);
     machine->nb_taches++;
 }
 
@@ -75,7 +75,7 @@ int main ()
     for (i = 0; i < 10; i++)
     {
          s_tache * tache = new_tache(1,i,1);
-        ajouter_tache(M1, tache);
+        ajouter_tache_m(M1, tache);
 
     }
     printf("%d , %d\n", evaluer(M1), evaluer(M2));

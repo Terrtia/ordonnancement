@@ -1,3 +1,5 @@
+#ifnded __STRUCTSH__;
+#define __STRUCTSH__
 #include <stdlib.h>
 #include <string.h>
 
@@ -29,10 +31,11 @@ s_machine * new_machine(int n);
 
 void ajouter_tache(s_taches * liste, s_tache * tache);
 
-void ajouter_tache(s_machine * machine, s_tache * tache);
+void ajouter_tache_m(s_machine * machine, s_tache * tache);
 
 void trier_liste(s_taches * liste);
 
 int evaluer(s_machine * machine);
 
 void toString(s_machine * m);
+#endif // __STRUCTS
