@@ -213,4 +213,3 @@ void free_solution(s_solution * solution)
     free(solution);
 }
 
-

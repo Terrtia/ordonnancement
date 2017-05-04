@@ -5,7 +5,7 @@
 #define POID_MAX 50
 #define START_MAX 50
 #define MIN 0
-#define TAILLE_MAX 1000 
+#define TAILLE_MAX 1000
 
 int rand_a_b(int a, int b){
     return rand()%(b-a) +a;
@@ -22,7 +22,7 @@ char *lire(char *tableau, int taille, FILE *fichier)
     return retour;
 }
 int main(int argc, char *argv[] ) {
-   
+
    if(argc == 2){
      int nbTache= atoi(argv[1]);
      int i = 0;
@@ -33,7 +33,7 @@ int main(int argc, char *argv[] ) {
 	int start_at_least = rand_a_b(MIN, START_MAX);
 	ajouter_tache(listTaches, new_tache(poid,start_at_least,duree));
      }
-     
+
     FILE* fichier = NULL;
     fichier = fopen("test.txt", "w+");
     if (fichier != NULL)
@@ -54,7 +54,7 @@ int main(int argc, char *argv[] ) {
         // On affiche un message d'erreur si on veut
         printf("Impossible d'ouvrir le fichier test.txt");
     }
-//     int nbTache 
+//     int nbTache
    } else {
 	  FILE* fichier = NULL;
 	int nbTache, i;
@@ -67,7 +67,7 @@ int main(int argc, char *argv[] ) {
 	{
 	    char ligne[TAILLE_MAX];
 	    for( i = 0; i < nbTache; i++){
-	 
+
 		fgets(ligne, TAILLE_MAX, fichier);
 		int duree = atoi(ligne);
 		fgets(ligne, TAILLE_MAX, fichier);
@@ -76,16 +76,19 @@ int main(int argc, char *argv[] ) {
 		int start_at_least = atoi(ligne);
 		ajouter_tache(listTaches, new_tache(poid,start_at_least,duree));
 		//printf("%d, %d, %d", duree, poid, start_at_least);
-	            
+
 	    }
 	    printf("%d", listTaches->nb_taches);
 /*	    while (fgets(ligne, TAILLE_MAX, fichier) != NULL)
 	    {
 	      printf("%s", ligne);
 	    }
-  */  
+  */
 	    fclose(fichier);
       }
+
+      heuristique_1(listTaches, nbTache);
+      heuristique_2(listTaches, nbTache);
    }
    return 0;
 }
