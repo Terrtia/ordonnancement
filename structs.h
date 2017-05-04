@@ -1,6 +1,7 @@
 #ifndef __STRUCT_H__
 #define __STRUCT_H__
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 
 typedef struct tache

@@ -88,7 +88,7 @@ void trier_liste(s_taches * liste)
     int i, j;
     for ( i = 0; i < tab_size - 1; i++) {
         for ( j = 1; j < tab_size - i; j++) {
-            if ( compare(liste->taches[j-1], liste->taches[j],1)) {
+            if ( compare(liste->taches[j-1], liste->taches[j],0)) {
                 swap(liste, j, j-1 );
             }
         }
@@ -214,7 +214,6 @@ void free_solution(s_solution * solution)
 
 //int main (){
     /*int i;
->>>>>>> d0bdc86fa74132e56c47248bb0e8f41e3fad1ac1
     s_taches * liste = new_taches(10);
     srand(time());
     for (i = 0; i < 10; i++)
@@ -234,5 +233,5 @@ void free_solution(s_solution * solution)
     evaluer(S);
     free_solution(S);
 
-//}
+//}*/
 
