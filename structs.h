@@ -1,7 +1,9 @@
 #ifndef __STRUCT_H__
 #define __STRUCT_H__
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct tache
 {
@@ -45,7 +47,7 @@ void swap(s_taches * liste, int x, int y);
 
 bool compare(s_tache * t1, s_tache * t2, int i);
 
-void trier_liste(s_taches * liste);
+void trier_liste(s_taches * liste, int nb);
 
 int evaluer_m(s_machine * machine);
 
