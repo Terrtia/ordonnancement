@@ -1,6 +1,4 @@
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
+
 #include "structs.h"
 
 
@@ -76,11 +74,15 @@ bool compare(s_tache * t1, s_tache * t2, int i)
             res = t1->start_at_least > t2->start_at_least;
             break;
         case 1:
+            res = t1->start_at_least < t2->start_at_least;
+            break;
+        case 2:
             res = ((float)t1->weight/(float)t1->duration) < ((float)t2->weight/(float)t2->duration);
             break;
     }
     return res;
 }
+
 
 void trier_liste(s_taches * liste, int comp)
 {
@@ -211,27 +213,4 @@ void free_solution(s_solution * solution)
     free_taches(solution->taches);
     free(solution);
 }
-
-//int main (){
-    /*int i;
-    s_taches * liste = new_taches(10);
-    srand(time());
-    for (i = 0; i < 10; i++)
-    {
-        s_tache * tache = new_tache(1 + rand()%5,i,1 + rand()%4);
-        ajouter_tache(liste,tache);
-
-    }
-    trier_liste(liste);
-    s_solution * S = new_solution(liste);
-    for (i = 0; i < 10; i++)
-    {
-        ajouter_tache_s(S, rand()%2, i);
-
-    }
-    solutionToString(S);
-    evaluer(S);
-    free_solution(S);
-
-//}*/
 
