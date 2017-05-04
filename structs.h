@@ -1,5 +1,5 @@
-#ifnded __STRUCTSH__;
-#define __STRUCTSH__
+#ifndef __STRUCT_H__
+#define __STRUCT_H__
 #include <stdlib.h>
 #include <string.h>
 
@@ -18,16 +18,24 @@ typedef struct taches
 
 typedef struct machine
 {
-    struct s_tache ** liste_taches;
+    struct s_taches * liste_taches;
     int nb_taches;
     int start_time;
 } s_machine;
+
+typedef struct solution
+{
+    s_machine * m1, * m2;
+    s_taches * taches;
+} s_solution;
 
 s_tache * new_tache(int w, int s, int d);
 
 s_taches * new_taches(int n);
 
 s_machine * new_machine(int n);
+
+s_solution * new_solution(s_taches * liste);
 
 void ajouter_tache(s_taches * liste, s_tache * tache);
 
@@ -37,5 +45,15 @@ void trier_liste(s_taches * liste);
 
 int evaluer(s_machine * machine);
 
-void toString(s_machine * m);
+void machineToString(s_machine * m);
+
+void solutionToString(s_solution * m);
+
+void free_tache(s_tache * tache);
+
+void free_taches(s_taches * taches);
+
+void free_machine(s_machine * machine);
+
+void free_solution(s_solution * solution);
 #endif // __STRUCTS
