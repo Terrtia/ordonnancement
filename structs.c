@@ -143,8 +143,7 @@ void free_solution(s_solution * solution)
     free(solution);
 }
 
-int main ()
-{
+//int main (){
     /*int i;
     s_taches * liste = new_taches(10);
     s_solution * S = new_solution(liste);
@@ -161,4 +160,5 @@ int main ()
     free_solution(S);
     printf("%d , %d\n", evaluer(S->m1), evaluer(S->m2));*/
 
-}
+//}
+
