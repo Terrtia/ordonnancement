@@ -212,9 +212,9 @@ void free_solution(s_solution * solution)
     free(solution);
 }
 
-int main ()
-{
-    int i;
+//int main (){
+    /*int i;
+>>>>>>> d0bdc86fa74132e56c47248bb0e8f41e3fad1ac1
     s_taches * liste = new_taches(10);
     srand(time());
     for (i = 0; i < 10; i++)
@@ -234,4 +234,5 @@ int main ()
     evaluer(S);
     free_solution(S);
 
-}
+//}
+
