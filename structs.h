@@ -44,6 +44,8 @@ void ajouter_tache(s_taches * liste, s_tache * tache);
 
 void ajouter_tache_m(s_machine * machine, s_tache * tache);
 
+void ajouter_tache_s(s_solution * s, int n_machine, int ntache);
+
 void swap(s_taches * liste, int x, int y);
 
 bool compare(s_tache * t1, s_tache * t2, int i);
@@ -51,6 +53,8 @@ bool compare(s_tache * t1, s_tache * t2, int i);
 void trier_liste(s_taches * liste, int comp);
 
 int evaluer_m(s_machine * machine);
+
+int evaluer(s_solution * solution);
 
 int starting_time(s_machine * machine);
 

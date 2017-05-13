@@ -202,7 +202,7 @@ void free_taches(s_taches * taches)
 
 void free_machine(s_machine * machine)
 {
-    free_taches((s_taches *)machine->liste_taches);
+    free((s_taches *)machine->liste_taches);
     free(machine);
 }
 

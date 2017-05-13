@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "structs.h"
+#include "heuristique.h"
+#include "genetic.h"
 #define DUREE_MAX 50
 #define POID_MAX 50
 #define START_MAX 50
@@ -22,12 +25,12 @@ char *lire(char *tableau, int taille, FILE *fichier)
     return retour;
 }
 int main(int argc, char *argv[] ) {
-
+    int nbTaches;
    if(argc == 2){
-     int nbTache= atoi(argv[1]);
+     nbTaches= atoi(argv[1]);
      int i = 0;
-     s_taches* listTaches = new_taches(nbTache);
-     for(i = 0; i < nbTache; i++){
+     s_taches* listTaches = new_taches(nbTaches);
+     for(i = 0; i < nbTaches; i++){
 	int duree = rand_a_b(MIN, DUREE_MAX);
 	int poid = rand_a_b(MIN, POID_MAX);
 	int start_at_least = rand_a_b(MIN, START_MAX);
@@ -38,9 +41,9 @@ int main(int argc, char *argv[] ) {
     fichier = fopen("test.txt", "w+");
     if (fichier != NULL)
     {
-      fprintf(fichier, "%d\n", nbTache);
+      fprintf(fichier, "%d\n", nbTaches);
       s_tache ** taches = listTaches->taches;
-      for( i = 0; i < nbTache; i++){
+      for( i = 0; i < nbTaches; i++){
 	s_tache* tache = taches[i];
         fprintf(fichier, "%d\n", tache->weight);
         fprintf(fichier, "%d\n", tache->start_at_least);
@@ -57,16 +60,16 @@ int main(int argc, char *argv[] ) {
 //     int nbTache
    } else {
 	  FILE* fichier = NULL;
-	int nbTache, i;
+	int i;
 	fichier = fopen("test.txt", "r");
 	char nb[TAILLE_MAX];
 	fgets(nb, TAILLE_MAX, fichier);
-	nbTache = atoi(nb);
-	s_taches* listTaches = new_taches(nbTache);
+	nbTaches = atoi(nb);
+	s_taches* listTaches = new_taches(nbTaches);
 	if (fichier != NULL)
 	{
 	    char ligne[TAILLE_MAX];
-	    for( i = 0; i < nbTache; i++){
+	    for( i = 0; i < nbTaches; i++){
 
 		fgets(ligne, TAILLE_MAX, fichier);
 		int duree = atoi(ligne);
@@ -86,11 +89,17 @@ int main(int argc, char *argv[] ) {
   */
 	    fclose(fichier);
       }
-
+      /*
       heuristique_1(listTaches, nbTache);
       heuristique_2(listTaches, nbTache);
       heuristique_3(listTaches, nbTache);
       heuristique_4(listTaches, nbTache);
+      */
+      srand(time(NULL));
+      PROBLEME = listTaches;
+      TAILLE_GENOME = nbTaches+1;
+      s_algorithme * algo = init_algorithme();
+      executerAlgortihme(algo);
    }
    return 0;
 }
