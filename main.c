@@ -100,6 +100,8 @@ int main(int argc, char *argv[] ) {
       TAILLE_GENOME = nbTaches+1;
       s_algorithme * algo = init_algorithme();
       executerAlgortihme(algo);
+      free(algo);
+      free_taches(listTaches);
    }
    return 0;
 }

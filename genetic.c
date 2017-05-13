@@ -55,8 +55,11 @@ s_solution * retourneSolution(s_individu * individu)
 }
 
 int retourneFitness(s_individu * individu) {
-	if (individu->aevaluer)
-        individu->fitness = evaluer(retourneSolution(individu));
+	if (individu->aevaluer) {
+        s_solution * S = retourneSolution(individu);
+        individu->fitness = evaluer(S);
+        free_solution(S);
+    }
     return individu->fitness;
 }
 
@@ -276,7 +279,7 @@ s_algorithme * init_algorithme()
     algo->taillePopulationEnfants = 50;
     algo->tailleTournoi = 5;
     algo->tauxMutation = 0.8;
-    algo->maxGenerations  = 50000;
+    algo->maxGenerations  = 100;
     algo->maxEvaluations  = 300;
     algo->verbose   = false;
     algo->generationsEffectuee = 0;
@@ -467,5 +470,6 @@ s_individu * executerAlgortihme(s_algorithme * algo)
 
 
 	}
+	freeAllPopulation(pop);
 	return algo->meilleurSolution;
 }

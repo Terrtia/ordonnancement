@@ -145,7 +145,7 @@ int starting_time(s_machine * machine)
 
 int ending_time( s_machine * machine)
 {
-    int i, time = machine->start_time, value = 0;
+    int i, time = machine->start_time;
     for (i = 0; i < machine->nb_taches; i++)
     {
         s_taches * l = machine->liste_taches;
@@ -200,9 +200,15 @@ void free_taches(s_taches * taches)
     free(taches);
 }
 
+void free_taches_mini(s_taches * taches)
+{
+    free(taches->taches);
+    free(taches);
+}
+
 void free_machine(s_machine * machine)
 {
-    free((s_taches *)machine->liste_taches);
+    free_taches_mini((s_taches *)machine->liste_taches);
     free(machine);
 }
 
@@ -210,7 +216,6 @@ void free_solution(s_solution * solution)
 {
     free_machine(solution->m1);
     free_machine(solution->m2);
-    free_taches(solution->taches);
     free(solution);
 }
 
