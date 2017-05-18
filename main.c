@@ -89,12 +89,12 @@ int main(int argc, char *argv[] ) {
   */
 	    fclose(fichier);
       }
-      /*
-      heuristique_1(listTaches, nbTache);
-      heuristique_2(listTaches, nbTache);
-      heuristique_3(listTaches, nbTache);
-      heuristique_4(listTaches, nbTache);
-      */
+      
+      heuristique_1(listTaches, nbTaches);
+      heuristique_2(listTaches, nbTaches);
+      heuristique_3(listTaches, nbTaches);
+      heuristique_4(listTaches, nbTaches);
+      
       srand(time(NULL));
       PROBLEME = listTaches;
       TAILLE_GENOME = nbTaches+1;

@@ -179,8 +179,10 @@ void solutionToString( s_solution * s)
 {
     printf("Liste des tâches : \n");
     tachesToString(s->taches);
+    printf("\n");
     printf("Machine 1:\n");
     machineToString(s->m1);
+    printf("\n");
     printf("Machine 2:\n");
     machineToString(s->m2);
 }

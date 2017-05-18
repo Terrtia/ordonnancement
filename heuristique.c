@@ -21,6 +21,8 @@ void heuristique_1(s_taches * taches, int nbTache)
     printf("eval: ");
     printf("%d",evaluer(solution));
     printf("\n");
+    printf("-------------------------------------------------------------------------------");
+    printf("\n");
 
    //free_solution(solution);
 }
@@ -53,6 +55,8 @@ void heuristique_2(s_taches * taches, int nbTache)
     printf("eval: ");
     printf("%d",evaluer(solution));
     printf("\n");
+    printf("-------------------------------------------------------------------------------");
+    printf("\n");
 
    //free_solution(solution);
 }
@@ -84,6 +88,8 @@ void heuristique_3(s_taches * taches, int nbTache)
     solutionToString(solution);
     printf("eval: ");
     printf("%d",evaluer(solution));
+    printf("\n");
+    printf("-------------------------------------------------------------------------------");
     printf("\n");
 
     //free_solution(solution);
@@ -118,6 +124,8 @@ void heuristique_4(s_taches * taches, int nbTache)
     solutionToString(solution);
     printf("eval: ");
     printf("%d",evaluer(solution));
+    printf("\n");
+    printf("-------------------------------------------------------------------------------");
     printf("\n");
 
     //free_solution(solution);
