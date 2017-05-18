@@ -9,5 +9,5 @@
             4) Random
 
 ## Pour compiler et éxecuter le projet:
-###gcc genetic.c structs.c heuristique.c main.c -o ordo
-###./ordo
+### gcc genetic.c structs.c heuristique.c main.c -o ordo
+### ./ordo > res
