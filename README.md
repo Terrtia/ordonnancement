@@ -8,4 +8,6 @@
             3) Poids/Durée
             4) Random
 
-###   Avec RAOUF
+## Pour compiler et éxecuter le projet:
+###gcc genetic.c structs.c heuristique.c main.c -o ordo
+###./ordo
